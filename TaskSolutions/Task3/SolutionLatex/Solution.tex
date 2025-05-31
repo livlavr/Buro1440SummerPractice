@@ -1,0 +1,119 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{xcolor}
+\usepackage{makecell}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage{tikz}
+\linespread{1.5}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{myStyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+}
+\lstset{style=myStyle}
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=2 cm, % seperation between body and page edge from the top
+    bottom=2 cm, % seperation between body and page edge from the bottom
+    left=2 cm, % seperation between body and page edge from the left
+    right=2 cm, % seperation between body and page edge from the right
+    footskip=0.5 cm, % seperation between body and footer
+    % showframe % for debugging
+]{geometry} % for adjusting page geometry
+
+\begin{document}
+\begingroup
+    \centering
+    \LARGE БЮРО 1440 (Задача 3)\\
+    \LARGE Лаврущев Иван\\
+    \large \today \\[0.5em]
+\endgroup
+
+\large
+\section*{Доказательство периодичности чётности значений \(f(n)\)}
+
+Рассмотрим:
+$$f(n)=5 \cdot f(n-1) + f(n-2),$$
+$$f(0)=1,f(1)=3$$
+Посчитаем первые несколько членов \(f_n \% 2$\):
+\begin{center}
+    f_0 \equiv 1,\\
+    f_1 \equiv 1,\\
+    f_2 = f_1 + f_0 \equiv 1 + 1 \equiv 0\\
+    f_3 = f_2 + f_1 \equiv 0 + 1 \equiv 1\\
+    f_4 = f_3 + f_2 \equiv 1 + 0 \equiv 1\\
+    f_5 = f_4 + f_3 \equiv 1 + 1 \equiv 0\\
+    f_6 = f_5 + f_4 \equiv 0 + 1 \equiv 1\\
+    f_7 = f_6 + f_5 \equiv 1 + 0 \equiv 1\\
+    f_8 = f_7 + f_6 \equiv 1 + 1 \equiv 0\\
+\end{center}
+Заметим, что четные числа появляются на каждом индексе $3n + 2$, докажем более формально:
+\begin{enumerate}
+\item \textbf{Предположение индукции:} {\\f_{3n}   \equiv 0\\
+                                          f_{3n+1} \equiv 1\\
+                                          f_{3n+2} \equiv 1}
+
+\item \textbf{База индукции:} {\\Верно для $n = 0, 1, 2$}
+\item \textbf{Шаг индукции:} {\\Пусть для некоторого $k$ справедливо предположение индукции, тогда для следующей тройки чисел:\\\\
+    f_{3k+3} = f_{3m} = f_{3k+2} + f_{3k+1} \equiv 0 + 1 \equiv 1,\\
+    f_{3k+4} = f_{3m + 1} = f_{3k+3} + f_{3k+2} \equiv 1 + 0 \equiv 1,\\
+    f_{3k+5} = f_{3m + 2} = f_{3k+4} + f_{3k+3} \equiv 1 + 1 \equiv 0}
+\end{enumerate}\\
+\textbf{ЧТД. Предположение индукции верно}
+\\
+\textbf{Вывод:} Четные значения встречаются каждый 3-ий индекс
+\section*{Решение}
+Таким образом, если мы хотим вычислить 40-й элемент массива $A$, то нас интересует $\frac{2}{3} \cdot x = 40$, $x = 60$ - номер (индексация с 1) четного числа в нужной нам тройки $\rightarrow$ номер нужного элемента = 59 (индексация с 1)\\
+
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <stdlib.h>
+
+int taskSolution();
+
+int main() {
+    int result = taskSolution();
+
+    printf("%d\n", result);
+}
+
+int taskSolution() {
+    int func_value_n_1 = 3;
+    int func_value_n_2 = 1;
+    int func_value     = 0;
+
+    for (int n = 2; n < 59; n++) {
+        func_value   = (5 * func_value_n_1 + func_value_n_2) % 100;
+        func_value_n_2 = func_value_n_1;
+        func_value_n_1 = func_value;
+    }
+
+    return func_value;
+}
+\end{lstlisting}
+Последние две цифры числа - 11\\
+Значит правильный ответ: \textbf{184153577162052268122747461393215875186211}\\
+\textbf{Ответ:} 184153577162052268122747461393215875186211
+
+\end{document}

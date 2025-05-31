@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{xcolor}
+\usepackage{makecell}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage{tikz}
+\linespread{1.5}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{myStyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+}
+\lstset{style=myStyle}
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=2 cm, % seperation between body and page edge from the top
+    bottom=2 cm, % seperation between body and page edge from the bottom
+    left=2 cm, % seperation between body and page edge from the left
+    right=2 cm, % seperation between body and page edge from the right
+    footskip=0.5 cm, % seperation between body and footer
+    % showframe % for debugging
+]{geometry} % for adjusting page geometry
+
+\begin{document}
+\begingroup
+    \centering
+    \LARGE БЮРО 1440 (Задача 4)\\
+    \LARGE Лаврущев Иван\\
+    \large \today \\[0.5em]
+\endgroup
+
+\large
+\section*{Решение}
+
+По условию, функция $f(n) \text{ выполняет } \text{reverseAndDeleteZeros}(n)$. Тогда
+$$f(f(n)) = \text{reverseAndDeleteZeros}(\text{reverseAndDeleteZeros}(n)) = n'$$
+Заметим, что в результате данных преобразований, если $n = n' \cdot 10^t$, то на выходе получим только $n'$
+$$g(n) = \frac{n'}{n} = \frac{n'}{n' \cdot 10^t} = \frac{1}{10^t}$$
+Так как $n \in (1, 10^{30})$, то $t \in [0, 29]$\\
+\textbf{Значит} функция принимает 30 различных значений\\
+\textbf{Ответ:} 30
+
+\end{document}
