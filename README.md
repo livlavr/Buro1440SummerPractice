@@ -1,1 +1,1 @@
-# Buro1440SummerPractice
+# Buro1440SummerPractice | Лаврущев Иван
